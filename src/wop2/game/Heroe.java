@@ -1,6 +1,11 @@
 package wop2.game;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+
 import wop2.items.*;
+import wop2.items.Arma.TipoAtaque;
 
 public class Heroe {
 	
@@ -19,16 +24,12 @@ public class Heroe {
 	private Arma arma;
 	private Armadura armadura;
 	private String genero;
-	private Items[] inventario; //HACER GETTER
+	private Item[] inventario; //HACER GETTER
 	
 	public enum Class {
 	    GUERRERO, MAGO, PICARO,
 	}
 
-	
-	public Heroe(){
-		System.out.println("penes");
-	}
 	
 	
 	/*public void subirNivel(Class clase){
@@ -38,7 +39,7 @@ public class Heroe {
 	
 	
 	public Heroe(String clase, String nombre, String genero){
-		inventario = new Items[10];
+		inventario = new Item[10];
 		switch(clase){
 		case "1":
 			this.clase = Class.GUERRERO;
@@ -77,13 +78,43 @@ public class Heroe {
 			armadura = new Armadura(0, "Ropajes", 0, 1, 0);
 			break;
 		}
-		System.out.println(inventario.length);
-		inventario[5] = new Arma(0, "Cuchillo embotado", 3, 1, 2, Arma.TipoAtaque.CORTE);
 		salud = saludMax;
-		dinero = 100;//cambiar a 0
+		dinero = 0;//cambiar a 0
 		this.nombre = nombre;
 		this.genero = genero;
 		
+	}
+
+	public Heroe(String fichero) throws FileNotFoundException {
+		Scanner lector;
+		lector = new Scanner(new FileReader(fichero));
+		nombre = lector.nextLine();
+		setClase(lector.nextLine());
+		salud = Integer.parseInt(lector.nextLine());
+		fuerza = Integer.parseInt(lector.nextLine());
+		defensagolpe = Integer.parseInt(lector.nextLine());
+		defensacorte = Integer.parseInt(lector.nextLine());
+		resistencia = Integer.parseInt(lector.nextLine());
+		precision = Integer.parseInt(lector.nextLine());
+		magia = Integer.parseInt(lector.nextLine());
+		saludMax = Integer.parseInt(lector.nextLine());
+		dinero = Integer.parseInt(lector.nextLine());
+		arma = new Arma();
+		arma.setPrecio(Integer.parseInt(lector.nextLine()));
+		arma.setNombre(lector.nextLine());
+		arma.setAtaque(Integer.parseInt(lector.nextLine()));
+		arma.setTipo(lector.nextLine());
+		arma.setPrecision(Integer.parseInt(lector.nextLine()));
+		arma.setPrecision(Integer.parseInt(lector.nextLine()));
+		armadura = new Armadura();
+		armadura.setPrecio(Integer.parseInt(lector.nextLine()));
+		armadura.setNombre(lector.nextLine());
+		armadura.setDefensaCorte((Integer.parseInt(lector.nextLine())));
+		armadura.setDefensaGolpe((Integer.parseInt(lector.nextLine())));
+		armadura.setResistencia((Integer.parseInt(lector.nextLine())));
+		genero = lector.nextLine();
+		lector.close();
+		inventario = new Item[10];
 	}
 
 	public int getSalud() {
@@ -124,6 +155,20 @@ public class Heroe {
 
 	public void setClase(Class clase) {
 		this.clase = clase;
+	}
+	
+	public void setClase(String s){
+		switch(s){
+		case "GUERRERO":
+			clase = Class.GUERRERO;
+			break;
+		case "MAGO":
+			clase = Class.MAGO;
+			break;
+		case "PICARO":
+			clase = Class.PICARO;
+			break;
+		}
 	}
 	
 	public String getNombre() {
@@ -215,28 +260,77 @@ public class Heroe {
 	}
 
 
-	public Items[] getInventario() {
+	public Item[] getInventario() {
 		return inventario;
+	}
+	
+	
+	public int getAtaqueArma(){
+		return arma.getAtaque();
+	}
+	
+	public int getPrecisionArma(){
+		return arma.getPrecision();
+	}
+	
+	public int getCriticoArma(){
+		return arma.getCritico();
+	}
+	
+	public TipoAtaque getTipoAtaque(){
+		return arma.getTipo();
 	}
 
 
-	public void setInventario(Items[] inventario) {
+	public void setInventario(Item[] inventario) {
 		this.inventario = inventario;
+	}
+	
+	public String stringSalud(){
+		return + salud + "/" + saludMax +"(" + ((float)salud/saludMax)*100 + "%)";
 	}
 
 
 	public String toString(){
-		String s = "Nombre: " + nombre + "\nClase: " + clase +", genero: " + genero + "\nSalud: " + salud + "/" + saludMax +"(" + ((float)salud/saludMax)*100 + "%)\n";
+		String s = "Nombre: " + nombre + "\nClase: " + clase +", genero: " + genero + "\nSalud: "+stringSalud()+"\n";
 		s += "Estadisticas ofensivas:\n------\nFuerza: " + fuerza + "\nMagia: " + magia + "\nPrecision: " + precision + "\n\n";
 		s += "Estadisticas defensivas:\n------\nGolpe: " + defensagolpe + "\nCorte: " + defensacorte + "\nResistencia magica: " + resistencia + "\n\n";
 		s += "Equipo\n------\nArma: " + arma + "\nArmadura: " + armadura + "\n";
 		s += "Inventario\n------\n";
-		for(Items i: inventario){
+		for(Item i: inventario){
 			if(i != null)
 				s += i + "\n";
 		}
 		s += "Dinero: " + dinero +"\n------\n";
 		return s;
+	}
+
+	public int getPrecioArma() {
+		return arma.getPrecio();
+	}
+
+	public String getNombreArma() {
+		return arma.getNombre();
+	}
+
+	public int getPrecioArmadura() {
+		return armadura.getPrecio();
+	}
+
+	public String getNombreArmadura() {
+		return armadura.getNombre();
+	}
+
+	public int getDefensacorteArmadura() {
+		return armadura.getDefensaCorte();
+	}
+
+	public int getDefensagolpeArmadura() {
+		return armadura.getDefensaGolpe();
+	}
+
+	public int getResistenciaArmadura() {
+		return armadura.getResistencia();
 	}
 
 }

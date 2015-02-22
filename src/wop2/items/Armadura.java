@@ -1,6 +1,6 @@
 package wop2.items;
 
-public class Armadura extends Items {
+public class Armadura extends Item {
 	
 	private int precio;
 	private String nombre;
@@ -18,6 +18,11 @@ public class Armadura extends Items {
 	}
 
 	
+	public Armadura() {
+		;
+	}
+
+
 	public int getPrecio() {
 		return precio;
 	}

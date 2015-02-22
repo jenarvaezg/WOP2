@@ -1,6 +1,6 @@
 package wop2.items;
 
-public abstract class Items {
+public abstract class Item {
 	
 	
 	public abstract int getPrecio();

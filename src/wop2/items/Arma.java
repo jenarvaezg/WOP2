@@ -1,7 +1,7 @@
 package wop2.items;
 
 
-public class Arma extends Items {
+public class Arma extends Item {
 	
 	private int precio;
 	private String nombre;
@@ -25,11 +25,14 @@ public class Arma extends Items {
 		this.setTipo(tipo);
 	}
 
+	public Arma() {
+		;
+	}
+
 	@Override
 	public int getPrecio() {
 		return precio;
 	}
-
 	
 
 	@Override
@@ -83,8 +86,24 @@ public class Arma extends Items {
 	@Override
 	public String toString() {
 		return "[Nombre: " + nombre + ", precio de venta: " + precio + ", ataque: "
-				+ ataque + ", precision=" + precision + ", critico=" + critico + ", tipo=" + tipo  
+				+ ataque + ", precision: " + precision + ", critico: " + critico + ", tipo: " + tipo  
 				 + "]";
+	}
+
+	public void setTipo(String s) {
+		switch(s){
+		case "GOLPE":
+			tipo = TipoAtaque.GOLPE;
+			break;
+		case "CORTE":
+			tipo = TipoAtaque.CORTE;
+			break;
+		case "MAGIA":
+			tipo = TipoAtaque.MAGIA;
+			break;
+		}
+		// TODO Auto-generated method stub
+		
 	}
 
 }

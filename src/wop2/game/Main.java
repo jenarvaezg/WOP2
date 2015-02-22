@@ -1,10 +1,14 @@
 package wop2.game;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import wop2.items.*;
+import wop2.enemies.*;
+import wop2.combat.*;
 
-public class Game {
+public class Main {
 	
 	private Scanner reader = new Scanner(System.in);
 	private static String prompt = "->";
@@ -14,12 +18,12 @@ public class Game {
 		System.out.println("#HISTORIA#");//TO-DO
 	}
 	
-	private static void printThisAndPrompt(String s){
+	public static void printThisAndPrompt(String s){
 		System.out.println(s);
 		System.out.print(prompt);
 	}
 	
-	public Game(){
+	public Main(){
 		boolean ok = false;
 		String clase = null; 
 		do{
@@ -32,19 +36,42 @@ public class Game {
 				System.out.println("Eres un cachondo");
 			}	
 		}while(!ok);
-		printThisAndPrompt("Escribre tu nombre");
+		printThisAndPrompt("Escribe tu nombre");
 		String name = reader.nextLine();
 		printThisAndPrompt("Escribe tu genero");
 		heroe = new Heroe(clase, name, reader.nextLine());
 		printIntro();
 	}
 	
-	public Game(String fichero){
-		System.out.println("IN_DEV");;//TO-DO
+	public Main(String fichero) throws FileNotFoundException{
+		heroe = new Heroe(fichero);
 	}
 	
 	private void arena(){
-		;//TODO
+		boolean salir = false;
+		System.out.println("Bienvenido a la arena!!\nEscoge tu victima o tu verdugo...");
+		do{
+			printThisAndPrompt("1) Capillamon \n2) Fuckencio \n3) Madafacka\n4) Salir");
+			switch(reader.nextLine()){
+			case "1":
+				Combat.Combatir(heroe, new Enemigo(30, 20, 5, 5, 5, 0, Arma.TipoAtaque.GOLPE, "Capillamon, denfesor de Arroyo", 15, null), reader);
+				salir = true;
+				break;
+			case "2":
+				Combat.Combatir(heroe, new Enemigo(100, 20, 3, 10, 0, 40, Arma.TipoAtaque.MAGIA, "Fuckencio, el meme furibundo", 30, null), reader);
+				salir = true;
+				break;
+			case "3":
+				Combat.Combatir(heroe, new Enemigo(200, 30, 10, 20, 30, 0, Arma.TipoAtaque.CORTE, "Madafacka, Esbirro de Ramiro", 50, null), reader);
+				salir = true;
+				break;
+			case "4":
+				System.out.println("Mariquita...");
+				salir = true;
+			default:
+				System.out.println("Comando invalido");
+			}
+		}while(!salir);
 	}
 
 	private void tienda(){ //hacer clase tiendo
@@ -212,7 +239,38 @@ public class Game {
 	}
 	
 	private void escriba(){
-		System.out.println("PROXIMAMENTE SE GUARDARA LA PARTIDA AQUI");//TODO
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(".savedataWOP2", "UTF-8");
+			writer.println(heroe.getNombre());
+			writer.println(heroe.getClase());
+			writer.println(heroe.getSalud());
+			writer.println(heroe.getFuerza());
+			writer.println(heroe.getDefensacorte());
+			writer.println(heroe.getDefensagolpe());
+			writer.println(heroe.getResistencia());
+			writer.println(heroe.getPrecision());
+			writer.println(heroe.getMagia());
+			writer.println(heroe.getSaludMax());
+			writer.println(heroe.getDinero());
+			writer.println(heroe.getPrecioArma());
+			writer.println(heroe.getNombreArma());
+			writer.println(heroe.getAtaqueArma());
+			writer.println(heroe.getTipoAtaque());
+			writer.println(heroe.getPrecisionArma());
+			writer.println(heroe.getCriticoArma());
+			writer.println(heroe.getPrecioArmadura());
+			writer.println(heroe.getNombreArmadura());
+			writer.println(heroe.getDefensacorteArmadura());
+			writer.println(heroe.getDefensagolpeArmadura());
+			writer.println(heroe.getResistenciaArmadura());
+			writer.println(heroe.getGenero());
+			//private Item[] inventario();
+			writer.close();
+		} catch (Exception e){
+			System.out.println("Error guardando partida");
+		}
+		System.out.println("Partida Guardada correctamente");
 	}
 	
 	public void menu(){
@@ -234,10 +292,10 @@ public class Game {
 				escriba(); //hacer, guarda partida
 				break;
 			case "5":
-				System.out.println(heroe);
+				System.out.println(heroe); //hecho
 				break;
 			case "6":
-				System.out.println("Adios");
+				System.out.println("Adios!!");
 				exit = true;
 				break;
 			default:
@@ -257,7 +315,7 @@ public class Game {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		boolean proceed = false;
-		Game game = null;
+		Main game = null;
 		String decision;
 		System.out.println("World of Picky 2 Alpha 0.1\n---------------");
 		Scanner readerMain = new Scanner(System.in);
@@ -266,14 +324,18 @@ public class Game {
 			decision = readerMain.nextLine();
 			switch(decision){
 			case "1":
-				game = new Game();
+				game = new Main();
 				proceed = true;
 				break;
 			case "2":
-				game = new Game("fichero");
+				try{
+					game = new Main(".savedataWOP2");
+				}catch(Exception e){
+					System.out.println("Fichero no encontrado");
+					return;
+				}
 				proceed = true;
-				return;
-				//break;
+				break;
 			case "3":
 				printExtras();
 				break;
