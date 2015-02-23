@@ -113,6 +113,7 @@ public class Heroe {
 	public Heroe(String fichero) throws FileNotFoundException {
 		Scanner lector;
 		lector = new Scanner(new FileReader(fichero));
+		lector.nextLine();
 		nombre = lector.nextLine();
 		setClase(lector.nextLine());
 		salud = Integer.parseInt(lector.nextLine());
@@ -146,8 +147,9 @@ public class Heroe {
 		lector.close();
 		
 		//HASHCHECK
-		if(hash != hashCode())
+		if(hash != hashCode()){
 			throw new RuntimeException();
+		}
 	}
 
 	public int getSalud() {

@@ -1,6 +1,7 @@
 package wop2.game;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -13,9 +14,14 @@ public class Main {
 	private Scanner reader = new Scanner(System.in);
 	private static String prompt = "->";
 	private Heroe heroe;
+	private static final String fichintro =".introWOP2";
 	
-	private void printIntro(){
-		System.out.println("#HISTORIA#");//TO-DO
+
+	private void printIntro() throws FileNotFoundException{
+		Scanner readerintro = new Scanner(new FileReader(fichintro));
+		while(readerintro.hasNext())
+			System.out.println(readerintro.nextLine());
+		readerintro.close();
 	}
 	
 	public static void printThisAndPrompt(String s){
@@ -23,9 +29,12 @@ public class Main {
 		System.out.print(prompt);
 	}
 	
-	public Main(){
+	public Main() throws FileNotFoundException{
 		boolean ok = false;
-		String clase = null; 
+		String clase = null;
+		printIntro();
+		System.out.print(prompt);
+		String name = reader.nextLine();
 		do{
 			try{
 				printThisAndPrompt("Escoge una clase:\n1) Guerrero\n2) Mago\n3) Picaro");
@@ -34,26 +43,24 @@ public class Main {
 					Integer.parseInt(clase);
 					ok = true;
 				}else{
-					System.out.println("Eres un cachondo");
+					System.out.println("Comando invalido");
 				}
 			}catch(NumberFormatException e){
-				System.out.println("Eres un cachondo");
+				System.out.println("Comando invalido");
 			}	
 		}while(!ok);
-		printThisAndPrompt("Escribe tu nombre");
-		String name = reader.nextLine();
 		printThisAndPrompt("Escribe tu genero");
 		heroe = new Heroe(clase, name, reader.nextLine());
-		printIntro();
 	}
 	
 	public Main(String fichero) throws FileNotFoundException, RuntimeException{
-	//	try{
+		try{
 			heroe = new Heroe(fichero);
-	//	}catch(Exception e){
-		//	System.out.println("Estas hecho un hacker, gtfo");
-		//	throw new RuntimeException();
-	//	}
+		}catch(RuntimeException e){
+			e.printStackTrace();
+			System.out.println("Estas hecho un hacker, gtfo");
+			throw new RuntimeException();
+		}
 	}
 	
 	private void arena(){
@@ -98,7 +105,7 @@ public class Main {
 						if(heroe.getDinero() >= 15f){
 							heroe.setDinero(heroe.getDinero() -15f);
 							heroe.setArma(new Arma(15/2, "Espada de piedra", 7, 2, 1, Arma.TipoAtaque.CORTE));
-							System.out.println("Obtienes: Espada de piedra");//TODO
+							System.out.println("Obtienes: Espada de piedra");
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -107,7 +114,7 @@ public class Main {
 						if(heroe.getDinero() >= 27){
 							heroe.setDinero(heroe.getDinero() - 27);
 							heroe.setArma(new Arma(27/2, "Maza de madera", 10, 0, 0, Arma.TipoAtaque.GOLPE));
-							System.out.println("Obtienes: Maza de madera");//TODO
+							System.out.println("Obtienes: Maza de madera");
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -115,7 +122,7 @@ public class Main {
 					case "3":
 						if(heroe.getDinero() >= 52){
 							heroe.setArmadura(new Armadura(52/2, "Malla oxidada", 20, 10, 0));
-							System.out.println("Obtienes: Espada de piedra");//TODO
+							System.out.println("Obtienes: Espada de piedra");
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -135,7 +142,7 @@ public class Main {
 						if(heroe.getDinero() >= 30){
 							heroe.setDinero(heroe.getDinero() - 30);
 							heroe.setArma(new Arma(30/2, "Baston de chopo", 4, 0, 1, Arma.TipoAtaque.GOLPE));
-							System.out.println("Obtienes: Baston de chopo");//TODO
+							System.out.println("Obtienes: Baston de chopo");
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -144,7 +151,7 @@ public class Main {
 						if(heroe.getDinero() >= 20){
 							heroe.setDinero(heroe.getDinero() - 20);
 							heroe.setArma(new Arma(15/2, "Varita rota", 7, 5, 0, Arma.TipoAtaque.MAGIA));
-							System.out.println("Obtienes: Varita rota");//TODO
+							System.out.println("Obtienes: Varita rota");
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -153,7 +160,7 @@ public class Main {
 						if(heroe.getDinero() >= 10){
 							heroe.setDinero(heroe.getDinero() - 10);
 							heroe.setArmadura(new Armadura(10/2, "Tunica usada", 1, 2, 20));
-							System.out.println("Obtienes: Tunica usada");//TODO
+							System.out.println("Obtienes: Tunica usada");
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -173,7 +180,7 @@ public class Main {
 						if(heroe.getDinero() >= 8){
 							heroe.setDinero(heroe.getDinero() - 8);
 							heroe.setArma(new Arma(7/2, "Daga doblada", 7, 0, 0, Arma.TipoAtaque.CORTE));
-							System.out.println("Obtienes: Daga doblada");//TODO
+							System.out.println("Obtienes: Daga doblada");
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -182,7 +189,7 @@ public class Main {
 						if(heroe.getDinero() >= 42){
 							heroe.setDinero(heroe.getDinero() - 42);
 							heroe.setArma(new Arma(42/2, "Arco astillado", 12, 7, 5, Arma.TipoAtaque.CORTE));
-							System.out.println("Obtienes: Arco astillado");//TODO
+							System.out.println("Obtienes: Arco astillado");
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -191,7 +198,7 @@ public class Main {
 						if(heroe.getDinero() >= 30){
 							heroe.setDinero(heroe.getDinero() - 30);
 							heroe.setArmadura(new Armadura(30/2, "Peto ajado", 10, 10, 5));
-							System.out.println("Obtienes: Peto ajado");//TODO
+							System.out.println("Obtienes: Peto ajado");
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -299,6 +306,7 @@ public class Main {
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(".savedataWOP2", "UTF-8");
+			writer.println("AVISO, SI MODIFICAS ALGUNA LINEA DE ESTE FICHERO TU PARTIDA SE PERDERA PARA SIEMPRE!");
 			writer.println(heroe.getNombre());
 			writer.println(heroe.getClase());
 			writer.println(heroe.getSalud());
@@ -384,7 +392,12 @@ public class Main {
 			decision = readerMain.nextLine();
 			switch(decision){
 			case "1":
-				game = new Main();
+				try {
+					game = new Main();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				proceed = true;
 				break;
 			case "2":
@@ -393,8 +406,9 @@ public class Main {
 				}catch(FileNotFoundException e){
 					System.out.println("Fichero no encontrado");
 					return;
-				//}catch(RuntimeException e){
-				//	return;
+				}catch(RuntimeException e){
+					System.out.println("GTFOOO");
+					return;
 				}
 				proceed = true;
 				break;
