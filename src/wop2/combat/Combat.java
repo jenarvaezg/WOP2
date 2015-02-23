@@ -56,6 +56,34 @@ public class Combat {
 		}
 	}
 	
+	private static void setStatsBuff (Heroe heroe){
+		switch (heroe.getTipoBuffo()){
+		case SALUD:
+			heroe.setSalud(heroe.getInitStatBuff());
+			break;
+		case FUERZA:
+			heroe.setFuerza(heroe.getInitStatBuff());
+			break;
+		case MAGIA:
+			heroe.setMagia(heroe.getInitStatBuff());
+			break;
+		case DEFGOLPE:
+			heroe.setDefensagolpe(heroe.getInitStatBuff());
+			break;
+		case DEFCORTE:
+			heroe.setDefensacorte(heroe.getInitStatBuff());
+			break;
+		case RESISTENCIA:
+			heroe.setResistencia(heroe.getInitStatBuff());
+			break;
+		case PRECISION:
+			heroe.setPrecision(heroe.getInitStatBuff());
+			break;
+		default:
+			break;
+		}
+	}
+	
 	private static void getStats(Heroe heroe, Enemigo enemigo){
 		precisionheroe = precisionbase + heroe.getPrecision() + heroe.getPrecisionArma();
 		precisionenemigo = precisionbase + enemigo.getPrecision();
@@ -106,12 +134,14 @@ public class Combat {
 						System.out.println(enemigo.getNombre() + " te ha asesinado. Pierdes " + heroe.getDinero()*0.30 + " bitcoin");
 						heroe.setDinero((float) (heroe.getDinero() - (heroe.getDinero()*0.30)));
 						heroe.setSalud(heroe.getSaludMax());
+						setStatsBuff(heroe);
 						return ResultadoCombate.DERROTA;
 					}					
 					break;
 				case "2":
 					System.out.println("Huyes del combate y pierdes " + (int)heroe.getDinero()*0.15 + " bitcoins");
 					heroe.setDinero((float) ((float)heroe.getDinero() - (float)heroe.getDinero()*0.15));
+					setStatsBuff(heroe);
 					return ResultadoCombate.HUIDA;
 				default:
 					System.out.println("Comando erroneo");
@@ -123,6 +153,7 @@ public class Combat {
 			System.out.println("Ademas has conseguido: " + enemigo.getLoot());
 			//HACER METODO ADDITEM
 		}
+		setStatsBuff(heroe);
 		return ResultadoCombate.VICTORIA;
 	}
 

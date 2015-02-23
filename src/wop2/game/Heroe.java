@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import wop2.items.*;
 import wop2.items.Arma.TipoAtaque;
+import wop2.buff.*;
+import wop2.buff.Buff.Buffo;
 
 public class Heroe {
 	
@@ -25,8 +27,8 @@ public class Heroe {
 	private Armadura armadura;
 	private String genero;
 	private Item[] inventario; //HACER GETTER
+	private Buff buffo;
 	private int contadorbuffo;
-	
 	
 	public enum Class {
 	    GUERRERO, MAGO, PICARO,
@@ -192,7 +194,7 @@ public class Heroe {
 		this.clase = clase;
 	}
 	
-	public int hashCode(Heroe.Class clase){
+public int hashCode(Heroe.Class clase){
 		
 		switch(clase){
 		case GUERRERO:
@@ -342,7 +344,7 @@ public class Heroe {
 
 	public String toString(){
 		String s = "Nombre: " + nombre + "\nClase: " + clase +", genero: " + genero + "\nSalud: "+stringSalud()+"\n";
-		s += "Estadisticas ofensivas:\n------\nFuerza: " + fuerza + "\nMagia: " + magia + "\nPrecision: +" + precision + "% \n\n";
+		s += "Estadisticas ofensivas:\n------\nFuerza: " + fuerza + "\nMagia: " + magia + "\nPrecision: " + precision + "% \n\n";
 		s += "Estadisticas defensivas:\n------\nGolpe: " + defensagolpe + "\nCorte: " + defensacorte + "\nResistencia magica: " + resistencia + "\n\n";
 		s += "Equipo\n------\nArma: " + arma + "\nArmadura: " + armadura + "\n";
 		s += "Inventario\n------\n";
@@ -390,4 +392,45 @@ public class Heroe {
 		this.contadorbuffo = contadorbuffo;
 	}
 
+	public Buff getBuffo() {
+		return buffo;
+	}
+
+	public void setBuffo(Buff buffo) {
+		this.buffo = buffo;
+		/*switch (buffo.getBuffo()){
+		case SALUD:
+			setSalud(this.salud + buffo.getPotencia());
+			break;
+		case FUERZA:
+			setFuerza(this.fuerza + buffo.getPotencia());
+			break;
+		case MAGIA:
+			setMagia(this.magia + buffo.getPotencia());
+			break;
+		case DEFGOLPE:
+			setDefensagolpe(this.defensagolpe + buffo.getPotencia());
+			break;
+		case DEFCORTE:
+			setDefensacorte(this.defensacorte + buffo.getPotencia());
+			break;
+		case RESISTENCIA:
+			setResistencia(this.resistencia + buffo.getPotencia());
+			break;
+		case PRECISION:
+			setPrecision(this.precision + buffo.getPotencia());
+			break;
+		default:
+			break;
+		}*/
+		
+	}
+	
+	public int getInitStatBuff(){
+		return buffo.getInitstat();
+	}
+	
+	public Buffo getTipoBuffo(){
+		return buffo.getBuffo();
+	}
 }

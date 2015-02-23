@@ -8,6 +8,7 @@ import java.util.Scanner;
 import wop2.items.*;
 import wop2.enemies.*;
 import wop2.combat.*;
+import wop2.buff.*;
 
 public class Main {
 	
@@ -16,7 +17,6 @@ public class Main {
 	private Heroe heroe;
 	private static final String fichintro =".introWOP2";
 	
-
 	private void printIntro() throws FileNotFoundException{
 		Scanner readerintro = new Scanner(new FileReader(fichintro));
 		while(readerintro.hasNext())
@@ -105,7 +105,7 @@ public class Main {
 						if(heroe.getDinero() >= 15f){
 							heroe.setDinero(heroe.getDinero() -15f);
 							heroe.setArma(new Arma(15/2, "Espada de piedra", 7, 2, 1, Arma.TipoAtaque.CORTE));
-							System.out.println("Obtienes: Espada de piedra");
+							System.out.println("Obtienes: Espada de piedra");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -114,7 +114,7 @@ public class Main {
 						if(heroe.getDinero() >= 27){
 							heroe.setDinero(heroe.getDinero() - 27);
 							heroe.setArma(new Arma(27/2, "Maza de madera", 10, 0, 0, Arma.TipoAtaque.GOLPE));
-							System.out.println("Obtienes: Maza de madera");
+							System.out.println("Obtienes: Maza de madera");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -122,7 +122,7 @@ public class Main {
 					case "3":
 						if(heroe.getDinero() >= 52){
 							heroe.setArmadura(new Armadura(52/2, "Malla oxidada", 20, 10, 0));
-							System.out.println("Obtienes: Espada de piedra");
+							System.out.println("Obtienes: Espada de piedra");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -142,7 +142,7 @@ public class Main {
 						if(heroe.getDinero() >= 30){
 							heroe.setDinero(heroe.getDinero() - 30);
 							heroe.setArma(new Arma(30/2, "Baston de chopo", 4, 0, 1, Arma.TipoAtaque.GOLPE));
-							System.out.println("Obtienes: Baston de chopo");
+							System.out.println("Obtienes: Baston de chopo");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -151,7 +151,7 @@ public class Main {
 						if(heroe.getDinero() >= 20){
 							heroe.setDinero(heroe.getDinero() - 20);
 							heroe.setArma(new Arma(15/2, "Varita rota", 7, 5, 0, Arma.TipoAtaque.MAGIA));
-							System.out.println("Obtienes: Varita rota");
+							System.out.println("Obtienes: Varita rota");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -160,7 +160,7 @@ public class Main {
 						if(heroe.getDinero() >= 10){
 							heroe.setDinero(heroe.getDinero() - 10);
 							heroe.setArmadura(new Armadura(10/2, "Tunica usada", 1, 2, 20));
-							System.out.println("Obtienes: Tunica usada");
+							System.out.println("Obtienes: Tunica usada");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -180,7 +180,7 @@ public class Main {
 						if(heroe.getDinero() >= 8){
 							heroe.setDinero(heroe.getDinero() - 8);
 							heroe.setArma(new Arma(7/2, "Daga doblada", 7, 0, 0, Arma.TipoAtaque.CORTE));
-							System.out.println("Obtienes: Daga doblada");
+							System.out.println("Obtienes: Daga doblada");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -189,7 +189,7 @@ public class Main {
 						if(heroe.getDinero() >= 42){
 							heroe.setDinero(heroe.getDinero() - 42);
 							heroe.setArma(new Arma(42/2, "Arco astillado", 12, 7, 5, Arma.TipoAtaque.CORTE));
-							System.out.println("Obtienes: Arco astillado");
+							System.out.println("Obtienes: Arco astillado");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -198,7 +198,7 @@ public class Main {
 						if(heroe.getDinero() >= 30){
 							heroe.setDinero(heroe.getDinero() - 30);
 							heroe.setArmadura(new Armadura(30/2, "Peto ajado", 10, 10, 5));
-							System.out.println("Obtienes: Peto ajado");
+							System.out.println("Obtienes: Peto ajado");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -248,13 +248,13 @@ public class Main {
 						switch(heroe.getClase()){
 						case GUERRERO:
 						case PICARO:
-							heroe.setFuerza(heroe.getFuerza() + 15);
+							heroe.setBuffo(new Buff("2", "Fuerza+10", 10, heroe));
 							heroe.setDinero(heroe.getDinero() - 20);
 							System.out.println("Gracias! Vuelve otro dia");
 							salir = true;
 							break;
 						case MAGO:
-							heroe.setMagia(heroe.getMagia() + 15);
+							heroe.setBuffo(new Buff("3", "Magia+10", 10, heroe));
 							heroe.setDinero(heroe.getDinero() - 20);
 							System.out.println("Gracias! Vuelve otro dia");
 							salir = true;
@@ -265,19 +265,19 @@ public class Main {
 						}
 						break;
 					case "2":
-						heroe.setDefensagolpe(heroe.getDefensagolpe() + 10);
+						heroe.setBuffo(new Buff("4", "DefGolpe+10", 10, heroe));
 						heroe.setDinero(heroe.getDinero() - 25);
 						System.out.println("Gracias! Vuelve otro dia");
 						salir = true;
 						break;
 					case "3":
-						heroe.setDefensacorte(heroe.getDefensacorte() + 10);
+						heroe.setBuffo(new Buff("5", "DefCorte+10", 10, heroe));
 						heroe.setDinero(heroe.getDinero() - 25);
 						System.out.println("Gracias! Vuelve otro dia");
 						salir = true;
 						break;
 					case "4": 
-						heroe.setResistencia(heroe.getResistencia() +10);
+						heroe.setBuffo(new Buff("6", "Resistencia+10", 10, heroe));
 						heroe.setDinero(heroe.getDinero() - 25);
 						System.out.println("Gracias! Vuelve otro dia");
 						salir = true;
@@ -368,7 +368,7 @@ public class Main {
 				exit = true;
 				break;
 			default:
-				System.out.println("Comando err�neo");
+				System.out.println("Comando erroneo");
 			}
 		}while(!exit);
 		reader.close();
