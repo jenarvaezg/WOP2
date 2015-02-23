@@ -86,7 +86,7 @@ public class Arma extends Item {
 	@Override
 	public String toString() {
 		return "[Nombre: " + nombre + ", precio de venta: " + precio + ", ataque: "
-				+ ataque + ", precision: " + precision + ", critico: " + critico + ", tipo: " + tipo  
+				+ ataque + ", precision: " + precision + "%, critico: " + critico + ", tipo: " + tipo  
 				 + "]";
 	}
 

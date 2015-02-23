@@ -20,11 +20,13 @@ public class Heroe {
 	private int precision;
 	private int magia;
 	private int saludMax;
-	private int dinero;
+	private float dinero;
 	private Arma arma;
 	private Armadura armadura;
 	private String genero;
 	private Item[] inventario; //HACER GETTER
+	private int contadorbuffo;
+	
 	
 	public enum Class {
 	    GUERRERO, MAGO, PICARO,
@@ -79,12 +81,40 @@ public class Heroe {
 			break;
 		}
 		salud = saludMax;
-		dinero = 0;//cambiar a 0
+		dinero = 0f;//cambiar a 0
 		this.nombre = nombre;
 		this.genero = genero;
 		
 	}
-
+	
+	public int hashCode(){
+		int sumahashes = 0;
+		sumahashes += getNombre().hashCode();
+		sumahashes -= getClase().hashCode();
+		sumahashes += getSalud()*2;
+		sumahashes -= getFuerza()*3;
+		sumahashes += getDefensacorte()*4;
+		sumahashes -= getDefensagolpe()*5;
+		sumahashes += getResistencia()*6;
+		sumahashes -= getPrecision()*7;
+		sumahashes += getMagia()*8;
+		sumahashes -= getSaludMax()*9;
+		sumahashes -= getDinero();
+		sumahashes += getPrecioArma()*2;
+		sumahashes -= getAtaqueArma()*3;
+		sumahashes += getTipoAtaque().hashCode();
+		sumahashes -= getPrecisionArma()*4;
+		sumahashes += getCriticoArma()*5;
+		sumahashes -= getPrecioArmadura()*6;
+		sumahashes += getNombreArmadura().hashCode();
+		sumahashes -= getNombre().hashCode();
+		sumahashes += getDefensacorteArmadura()*7;
+		sumahashes -= getDefensagolpeArmadura()*8;
+		sumahashes += getResistenciaArmadura()*9;
+		sumahashes -= getGenero().hashCode();
+		return sumahashes;		
+	}
+	
 	public Heroe(String fichero) throws FileNotFoundException {
 		Scanner lector;
 		lector = new Scanner(new FileReader(fichero));
@@ -114,6 +144,8 @@ public class Heroe {
 		armadura.setResistencia((Integer.parseInt(lector.nextLine())));
 		genero = lector.nextLine();
 		lector.close();
+		if(Integer.parseInt(lector.nextLine()) != hashCode())
+			throw new RuntimeException();
 		inventario = new Item[10];
 	}
 
@@ -141,11 +173,11 @@ public class Heroe {
 		this.saludMax = saludMax;
 	}
 
-	public int getDinero() {
+	public float getDinero() {
 		return dinero;
 	}
 
-	public void setDinero(int dinero) {
+	public void setDinero(float dinero) {
 		this.dinero = dinero;
 	}
 
@@ -293,7 +325,7 @@ public class Heroe {
 
 	public String toString(){
 		String s = "Nombre: " + nombre + "\nClase: " + clase +", genero: " + genero + "\nSalud: "+stringSalud()+"\n";
-		s += "Estadisticas ofensivas:\n------\nFuerza: " + fuerza + "\nMagia: " + magia + "\nPrecision: " + precision + "\n\n";
+		s += "Estadisticas ofensivas:\n------\nFuerza: " + fuerza + "\nMagia: " + magia + "\nPrecision: " + precision + "% \n\n";
 		s += "Estadisticas defensivas:\n------\nGolpe: " + defensagolpe + "\nCorte: " + defensacorte + "\nResistencia magica: " + resistencia + "\n\n";
 		s += "Equipo\n------\nArma: " + arma + "\nArmadura: " + armadura + "\n";
 		s += "Inventario\n------\n";
@@ -331,6 +363,14 @@ public class Heroe {
 
 	public int getResistenciaArmadura() {
 		return armadura.getResistencia();
+	}
+
+	public int getContadorbuffo() {
+		return contadorbuffo;
+	}
+
+	public void setContadorbuffo(int contadorbuffo) {
+		this.contadorbuffo = contadorbuffo;
 	}
 
 }

@@ -7,7 +7,7 @@ public class Enemigo {
 	
 	private int saludMax;
 	private int salud;
-	private int daño;
+	private int damage;
 	private int defensagolpe;
 	private int defensacorte;
 	private int resistencia;
@@ -19,12 +19,12 @@ public class Enemigo {
 	
 	
 	
-	public Enemigo(int saludMax, int daño, int precision, int defensagolpe,
+	public Enemigo(int saludMax, int damage, int precision, int defensagolpe,
 			int defensacorte, int resistencia, TipoAtaque tipoAtaque,
 			String nombre, int dinero, Item loot) {
 		this.saludMax = saludMax;
 		this.salud = saludMax;
-		this.daño = daño;
+		this.damage = damage;
 		this.precision = precision;
 		this.setDefensagolpe(defensagolpe);
 		this.setDefensacorte(defensacorte);
@@ -48,11 +48,11 @@ public class Enemigo {
 	public void setSalud(int salud) {
 		this.salud = salud;
 	}
-	public int getDaño() {
-		return daño;
+	public int getdamage() {
+		return damage;
 	}
-	public void setDaño(int daño) {
-		this.daño = daño;
+	public void setdamage(int damage) {
+		this.damage = damage;
 	}
 	public TipoAtaque getTipoAtaque() {
 		return tipoAtaque;

@@ -30,8 +30,12 @@ public class Main {
 			try{
 				printThisAndPrompt("Escoge una clase:\n1) Guerrero\n2) Mago\n3) Picaro");
 				clase = reader.nextLine();
-				Integer.parseInt(clase);
-				ok = true;
+				if (Integer.parseInt(clase) >= 1 && Integer.parseInt(clase) <= 3){
+					Integer.parseInt(clase);
+					ok = true;
+				}else{
+					System.out.println("Eres un cachondo");
+				}
 			}catch(NumberFormatException e){
 				System.out.println("Eres un cachondo");
 			}	
@@ -43,8 +47,13 @@ public class Main {
 		printIntro();
 	}
 	
-	public Main(String fichero) throws FileNotFoundException{
-		heroe = new Heroe(fichero);
+	public Main(String fichero) throws FileNotFoundException, RuntimeException{
+		try{
+			heroe = new Heroe(fichero);
+		}catch(Exception e){
+			System.out.println("Estas hecho un hacker, gtfo");
+			throw new RuntimeException();
+		}
 	}
 	
 	private void arena(){
@@ -54,7 +63,7 @@ public class Main {
 			printThisAndPrompt("1) Capillamon \n2) Fuckencio \n3) Madafacka\n4) Salir");
 			switch(reader.nextLine()){
 			case "1":
-				Combat.Combatir(heroe, new Enemigo(30, 20, 5, 5, 5, 0, Arma.TipoAtaque.GOLPE, "Capillamon, denfesor de Arroyo", 15, null), reader);
+				Combat.Combatir(heroe, new Enemigo(30, 20, 5, 5, 5, 0, Arma.TipoAtaque.GOLPE, "Capillamon, defesor de Arroyo", 15, null), reader);
 				salir = true;
 				break;
 			case "2":
@@ -86,8 +95,8 @@ public class Main {
 					printThisAndPrompt("1) Espada de piedra (15 bitcoins)\n2) Maza de madera (27 bitcoins)\n3) Malla oxidada (52 bitcoins)\n4) Salir");
 					switch(reader.nextLine()){
 					case "1":
-						if(heroe.getDinero() >= 15){
-							heroe.setDinero(heroe.getDinero() -15);
+						if(heroe.getDinero() >= 15f){
+							heroe.setDinero(heroe.getDinero() -15f);
 							heroe.setArma(new Arma(15/2, "Espada de piedra", 7, 2, 1, Arma.TipoAtaque.CORTE));
 							System.out.println("Obtienes: Espada de piedra");//TODO
 						}else{
@@ -173,7 +182,7 @@ public class Main {
 						if(heroe.getDinero() >= 42){
 							heroe.setDinero(heroe.getDinero() - 42);
 							heroe.setArma(new Arma(42/2, "Arco astillado", 12, 7, 5, Arma.TipoAtaque.CORTE));
-							System.out.println("Obtienes: Espada de piedra");//TODO
+							System.out.println("Obtienes: Arco astillado");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -182,7 +191,7 @@ public class Main {
 						if(heroe.getDinero() >= 30){
 							heroe.setDinero(heroe.getDinero() - 30);
 							heroe.setArmadura(new Armadura(30/2, "Peto ajado", 10, 10, 5));
-							System.out.println("Obtienes: Espada de piedra");//TODO
+							System.out.println("Obtienes: Peto ajado");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -213,18 +222,67 @@ public class Main {
 		System.out.println("Bienvenido a la taberna");//AGREGAR BUFFOS
 		boolean salir = false;
 		do{
-			printThisAndPrompt("1) Descansar (30 Bitcoins)\n2) Salir");
+			printThisAndPrompt("1) Descansar\n2) Salir");
 			switch(reader.nextLine()){
 			case "1":
 				if(heroe.getDinero() < 30){
 					System.out.println("Vuelve cuando tengas dinero, mangarrian");
 					salir = true;
-					//}else if(heroe.getSalud().equals(heroe.getSaludMax())){ aqui agregamos buffos chachis				
-				}else{
-					System.out.println("Te sientes en forma");
+				}else if (heroe.getSalud() < heroe.getSaludMax()) {
+					System.out.println("Te sientes en forma y te cuesta 30 Bitcoins");
 					heroe.setSalud(heroe.getSaludMax());
 					heroe.setDinero(heroe.getDinero() - 30);
 					salir = true;
+				}else if(heroe.getSalud() == heroe.getSaludMax()){
+					printThisAndPrompt("1) Aumentar Att. Principal (20 Bitcoins)" +
+							"\n2) Aumentar Def.Golpe (25 Bitcoins)\n3) Aumentar Def.Corte (25 Bitcoins)\n4) Aumentar Resistencia (25 Bitcoins)\n5) Salir");
+					switch(reader.nextLine()){
+					case "1":
+						switch(heroe.getClase()){
+						case GUERRERO:
+						case PICARO:
+							heroe.setFuerza(heroe.getFuerza() + 15);
+							heroe.setDinero(heroe.getDinero() - 20);
+							System.out.println("Gracias! Vuelve otro dia");
+							salir = true;
+							break;
+						case MAGO:
+							heroe.setMagia(heroe.getMagia() + 15);
+							heroe.setDinero(heroe.getDinero() - 20);
+							System.out.println("Gracias! Vuelve otro dia");
+							salir = true;
+							break;
+						default:
+							System.out.println("Comando invalido");
+							break;
+						}
+						break;
+					case "2":
+						heroe.setDefensagolpe(heroe.getDefensagolpe() + 10);
+						heroe.setDinero(heroe.getDinero() - 25);
+						System.out.println("Gracias! Vuelve otro dia");
+						salir = true;
+						break;
+					case "3":
+						heroe.setDefensacorte(heroe.getDefensacorte() + 10);
+						heroe.setDinero(heroe.getDinero() - 25);
+						System.out.println("Gracias! Vuelve otro dia");
+						salir = true;
+						break;
+					case "4": 
+						heroe.setResistencia(heroe.getResistencia() +10);
+						heroe.setDinero(heroe.getDinero() - 25);
+						System.out.println("Gracias! Vuelve otro dia");
+						salir = true;
+						break;
+					case "5":
+						System.out.println("Vuelve otro dia!");
+						salir = true;
+						break;
+					default:
+						System.out.println("Comando invalido");
+					}
+					break;
 				}
 				break;
 			case "2":
@@ -235,7 +293,6 @@ public class Main {
 				System.out.println("Comando invalido");
 			}
 		}while(!salir);
-
 	}
 	
 	private void escriba(){
@@ -265,6 +322,7 @@ public class Main {
 			writer.println(heroe.getDefensagolpeArmadura());
 			writer.println(heroe.getResistenciaArmadura());
 			writer.println(heroe.getGenero());
+			writer.println(heroe.hashCode());
 			//private Item[] inventario();
 			writer.close();
 		} catch (Exception e){
@@ -299,7 +357,7 @@ public class Main {
 				exit = true;
 				break;
 			default:
-				System.out.println("Comando erróneo");
+				System.out.println("Comando errï¿½neo");
 			}
 		}while(!exit);
 		reader.close();
@@ -313,7 +371,6 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		boolean proceed = false;
 		Main game = null;
 		String decision;
@@ -330,8 +387,10 @@ public class Main {
 			case "2":
 				try{
 					game = new Main(".savedataWOP2");
-				}catch(Exception e){
+				}catch(FileNotFoundException e){
 					System.out.println("Fichero no encontrado");
+					return;
+				}catch(RuntimeException e){
 					return;
 				}
 				proceed = true;
@@ -340,11 +399,10 @@ public class Main {
 				printExtras();
 				break;
 			default:
-				System.out.println("Comando inválido");
+				System.out.println("Comando invalido");
 			}
 		}while(!proceed);
 		game.menu();
 		readerMain.close();
 	}
-
 }

@@ -57,7 +57,7 @@ public class Armadura extends Item {
 
 	@Override
 	public String toString() {
-		return "Armadura [Nombre: " + nombre + ", precio: " + precio
+		return "[Nombre: " + nombre + ", precio: " + precio
 				+ ", defensa corte: " + defensacorte + ", defensa golpe: "
 				+ defensagolpe + ", resistencia: " + resistencia + "]";
 	}
