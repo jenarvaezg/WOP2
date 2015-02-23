@@ -16,6 +16,29 @@ public class Arma extends Item {
 		CORTE, GOLPE, MAGIA,
 	}
 	
+	public int hashCode(Arma.TipoAtaque tipo){ //modificar
+		switch(tipo){
+		case GOLPE:
+			return "GOLPE".hashCode();
+		case CORTE:
+			return "CORTE".hashCode();
+		case MAGIA:
+			return "MAGIA".hashCode();
+		default:
+			return 0;
+		}
+	}
+	
+	public int hashCode(){
+		int hash = 0;
+		hash += precio*23;
+		hash -= ataque*32;
+		hash += hashCode(tipo);
+		hash -= precision*41;
+		hash += critico*50;
+		return hash;
+	}
+	
 	public Arma(int precio, String nombre, int ataque, int precision, int critico, TipoAtaque tipo){
 		this.precio = precio;
 		this.nombre = nombre;
@@ -86,7 +109,7 @@ public class Arma extends Item {
 	@Override
 	public String toString() {
 		return "[Nombre: " + nombre + ", precio de venta: " + precio + ", ataque: "
-				+ ataque + ", precision: " + precision + "%, critico: " + critico + ", tipo: " + tipo  
+				+ ataque + ", precision: +" + precision + "%, critico: +" + critico + "%, tipo: " + tipo  
 				 + "]";
 	}
 

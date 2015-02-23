@@ -48,12 +48,12 @@ public class Main {
 	}
 	
 	public Main(String fichero) throws FileNotFoundException, RuntimeException{
-		try{
+	//	try{
 			heroe = new Heroe(fichero);
-		}catch(Exception e){
-			System.out.println("Estas hecho un hacker, gtfo");
-			throw new RuntimeException();
-		}
+	//	}catch(Exception e){
+		//	System.out.println("Estas hecho un hacker, gtfo");
+		//	throw new RuntimeException();
+	//	}
 	}
 	
 	private void arena(){
@@ -310,18 +310,21 @@ public class Main {
 			writer.println(heroe.getMagia());
 			writer.println(heroe.getSaludMax());
 			writer.println(heroe.getDinero());
+			writer.println(heroe.getGenero());
+
+			//ARMA
 			writer.println(heroe.getPrecioArma());
 			writer.println(heroe.getNombreArma());
 			writer.println(heroe.getAtaqueArma());
 			writer.println(heroe.getTipoAtaque());
 			writer.println(heroe.getPrecisionArma());
 			writer.println(heroe.getCriticoArma());
+			//ARMADURA
 			writer.println(heroe.getPrecioArmadura());
 			writer.println(heroe.getNombreArmadura());
 			writer.println(heroe.getDefensacorteArmadura());
 			writer.println(heroe.getDefensagolpeArmadura());
 			writer.println(heroe.getResistenciaArmadura());
-			writer.println(heroe.getGenero());
 			writer.println(heroe.hashCode());
 			//private Item[] inventario();
 			writer.close();
@@ -390,8 +393,8 @@ public class Main {
 				}catch(FileNotFoundException e){
 					System.out.println("Fichero no encontrado");
 					return;
-				}catch(RuntimeException e){
-					return;
+				//}catch(RuntimeException e){
+				//	return;
 				}
 				proceed = true;
 				break;

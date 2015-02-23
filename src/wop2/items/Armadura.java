@@ -22,6 +22,15 @@ public class Armadura extends Item {
 		;
 	}
 
+	public int hashCode(){
+		int hash = 0;
+		hash -= precio*642;
+		hash += nombre.hashCode();
+		hash -= defensacorte*777;
+		hash += defensagolpe*835;
+		hash -= resistencia*901;
+		return hash;
+	}
 
 	public int getPrecio() {
 		return precio;
@@ -57,7 +66,7 @@ public class Armadura extends Item {
 
 	@Override
 	public String toString() {
-		return "[Nombre: " + nombre + ", precio: " + precio
+		return "[Nombre: " + nombre + ", precio de venta: " + precio
 				+ ", defensa corte: " + defensacorte + ", defensa golpe: "
 				+ defensagolpe + ", resistencia: " + resistencia + "]";
 	}

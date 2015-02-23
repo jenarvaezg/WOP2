@@ -89,8 +89,9 @@ public class Heroe {
 	
 	public int hashCode(){
 		int sumahashes = 0;
+		//HEROE
 		sumahashes += getNombre().hashCode();
-		sumahashes -= getClase().hashCode();
+		sumahashes -= hashCode(getClase());
 		sumahashes += getSalud()*2;
 		sumahashes -= getFuerza()*3;
 		sumahashes += getDefensacorte()*4;
@@ -100,18 +101,12 @@ public class Heroe {
 		sumahashes += getMagia()*8;
 		sumahashes -= getSaludMax()*9;
 		sumahashes -= getDinero();
-		sumahashes += getPrecioArma()*2;
-		sumahashes -= getAtaqueArma()*3;
-		sumahashes += getTipoAtaque().hashCode();
-		sumahashes -= getPrecisionArma()*4;
-		sumahashes += getCriticoArma()*5;
-		sumahashes -= getPrecioArmadura()*6;
-		sumahashes += getNombreArmadura().hashCode();
-		sumahashes -= getNombre().hashCode();
-		sumahashes += getDefensacorteArmadura()*7;
-		sumahashes -= getDefensagolpeArmadura()*8;
-		sumahashes += getResistenciaArmadura()*9;
-		sumahashes -= getGenero().hashCode();
+		sumahashes += getGenero().hashCode();
+		//ARMA
+		sumahashes -= arma.hashCode();		
+		//ARMADURA
+		sumahashes += armadura.hashCode();
+		
 		return sumahashes;		
 	}
 	
@@ -122,13 +117,15 @@ public class Heroe {
 		setClase(lector.nextLine());
 		salud = Integer.parseInt(lector.nextLine());
 		fuerza = Integer.parseInt(lector.nextLine());
-		defensagolpe = Integer.parseInt(lector.nextLine());
 		defensacorte = Integer.parseInt(lector.nextLine());
+		defensagolpe = Integer.parseInt(lector.nextLine());
 		resistencia = Integer.parseInt(lector.nextLine());
 		precision = Integer.parseInt(lector.nextLine());
 		magia = Integer.parseInt(lector.nextLine());
 		saludMax = Integer.parseInt(lector.nextLine());
-		dinero = Integer.parseInt(lector.nextLine());
+		dinero = Float.parseFloat(lector.nextLine());
+		genero = lector.nextLine();
+		//ARMA
 		arma = new Arma();
 		arma.setPrecio(Integer.parseInt(lector.nextLine()));
 		arma.setNombre(lector.nextLine());
@@ -136,17 +133,21 @@ public class Heroe {
 		arma.setTipo(lector.nextLine());
 		arma.setPrecision(Integer.parseInt(lector.nextLine()));
 		arma.setPrecision(Integer.parseInt(lector.nextLine()));
+		//ARMADURA
 		armadura = new Armadura();
 		armadura.setPrecio(Integer.parseInt(lector.nextLine()));
 		armadura.setNombre(lector.nextLine());
 		armadura.setDefensaCorte((Integer.parseInt(lector.nextLine())));
 		armadura.setDefensaGolpe((Integer.parseInt(lector.nextLine())));
 		armadura.setResistencia((Integer.parseInt(lector.nextLine())));
-		genero = lector.nextLine();
-		lector.close();
-		if(Integer.parseInt(lector.nextLine()) != hashCode())
-			throw new RuntimeException();
+		int hash = Integer.parseInt(lector.nextLine());
+		//INVENTARIO
 		inventario = new Item[10];
+		lector.close();
+		
+		//HASHCHECK
+		if(hash != hashCode())
+			throw new RuntimeException();
 	}
 
 	public int getSalud() {
@@ -187,6 +188,20 @@ public class Heroe {
 
 	public void setClase(Class clase) {
 		this.clase = clase;
+	}
+	
+	public int hashCode(Heroe.Class clase){
+		
+		switch(clase){
+		case GUERRERO:
+			return "GUERRERO".hashCode();
+		case MAGO:
+			return "MAGO".hashCode();
+		case PICARO:
+			return "PICARO".hashCode();
+		default:
+			return 0;
+		}
 	}
 	
 	public void setClase(String s){
@@ -325,7 +340,7 @@ public class Heroe {
 
 	public String toString(){
 		String s = "Nombre: " + nombre + "\nClase: " + clase +", genero: " + genero + "\nSalud: "+stringSalud()+"\n";
-		s += "Estadisticas ofensivas:\n------\nFuerza: " + fuerza + "\nMagia: " + magia + "\nPrecision: " + precision + "% \n\n";
+		s += "Estadisticas ofensivas:\n------\nFuerza: " + fuerza + "\nMagia: " + magia + "\nPrecision: +" + precision + "% \n\n";
 		s += "Estadisticas defensivas:\n------\nGolpe: " + defensagolpe + "\nCorte: " + defensacorte + "\nResistencia magica: " + resistencia + "\n\n";
 		s += "Equipo\n------\nArma: " + arma + "\nArmadura: " + armadura + "\n";
 		s += "Inventario\n------\n";
