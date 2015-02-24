@@ -58,31 +58,34 @@ public class Combat {
 	
 	private static void setStatsBuff (Heroe heroe){
 		switch (heroe.getTipoBuffo()){
-		case SALUD:
-			heroe.setSalud(heroe.getInitStatBuff());
-			break;
-		case FUERZA:
-			heroe.setFuerza(heroe.getInitStatBuff());
-			break;
-		case MAGIA:
-			heroe.setMagia(heroe.getInitStatBuff());
-			break;
-		case DEFGOLPE:
-			heroe.setDefensagolpe(heroe.getInitStatBuff());
-			break;
-		case DEFCORTE:
-			heroe.setDefensacorte(heroe.getInitStatBuff());
-			break;
-		case RESISTENCIA:
-			heroe.setResistencia(heroe.getInitStatBuff());
-			break;
-		case PRECISION:
-			heroe.setPrecision(heroe.getInitStatBuff());
-			break;
-		default:
-			break;
+			case SALUD:
+				heroe.setSalud(heroe.getInitStatBuff());
+				break;
+			case FUERZA:
+				heroe.setFuerza(heroe.getInitStatBuff());
+				break;
+			case MAGIA:
+				heroe.setMagia(heroe.getInitStatBuff());
+				break;
+			case DEFGOLPE:
+				heroe.setDefensagolpe(heroe.getInitStatBuff());
+				break;
+			case DEFCORTE:
+				heroe.setDefensacorte(heroe.getInitStatBuff());
+				break;
+			case RESISTENCIA:
+				heroe.setResistencia(heroe.getInitStatBuff());
+				break;
+			case PRECISION:
+				heroe.setPrecision(heroe.getInitStatBuff());
+				break;
+			case NADA:
+				break;
+			default:
+				break;
+			}
 		}
-	}
+	
 	
 	private static void getStats(Heroe heroe, Enemigo enemigo){
 		precisionheroe = precisionbase + heroe.getPrecision() + heroe.getPrecisionArma();

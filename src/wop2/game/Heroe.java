@@ -27,7 +27,7 @@ public class Heroe {
 	private Armadura armadura;
 	private String genero;
 	private Item[] inventario; //HACER GETTER
-	private Buff buffo;
+	private Buff buffo =  new Buff ("8", "NADA", 0, null);
 	private int contadorbuffo;
 	
 	public enum Class {

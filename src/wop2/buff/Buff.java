@@ -53,9 +53,11 @@ public class Buff {
 			heroe.setPrecision(heroe.getPrecision() + potencia);
 			break;
 		case "8":
+			this.buffo = Buffo.NADA;
 			break;
 		}
 	}
+	
 
 	public String getNombre() {
 		return nombre;
@@ -72,7 +74,8 @@ public class Buff {
 	public void setBuffo(Buffo buffo) {
 		this.buffo = buffo;
 	}
-
+	
+	
 	public int getInitstat() {
 		return initstat;
 	}
