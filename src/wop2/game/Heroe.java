@@ -83,7 +83,7 @@ public class Heroe {
 			break;
 		}
 		salud = saludMax;
-		dinero = 0f;//cambiar a 0
+		dinero = 100f;//cambiar a 0
 		this.nombre = nombre;
 		this.genero = genero;
 		
