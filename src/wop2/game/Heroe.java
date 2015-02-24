@@ -153,12 +153,10 @@ public class Heroe {
 		buffo.setNombre(lector.nextLine());
 		buffo.setPotencia(Integer.parseInt(lector.nextLine()));
 		int hash = Integer.parseInt(lector.nextLine());
-		System.out.println(hash);
 		//INVENTARIO
 		inventario = new Item[10];
 		lector.close();
 		//HASHCHECK
-		System.out.println(hashCode());
 		if(hash != hashCode()){
 			throw new RuntimeException();
 		}
