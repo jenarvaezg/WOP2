@@ -61,31 +61,31 @@ public class Combat {
 		switch (heroe.getTipoBuffo()){
 			case SALUD:
 				heroe.setSalud(heroe.getInitstat());
-				heroe.setBuffo(new Buff("8", "NADA", 0));
+				heroe.setBuffo(new Buff("8", "NADA", 0, 0));
 				break;
 			case FUERZA:
 				heroe.setFuerza(heroe.getInitstat());
-				heroe.setBuffo(new Buff("8", "NADA", 0));
+				heroe.setBuffo(new Buff("8", "NADA", 0, 0));
 				break;
 			case MAGIA:
 				heroe.setMagia(heroe.getInitstat());
-				heroe.setBuffo(new Buff("8", "NADA", 0));
+				heroe.setBuffo(new Buff("8", "NADA", 0, 0));
 				break;
 			case DEFGOLPE:
 				heroe.setDefensagolpe(heroe.getInitstat());
-				heroe.setBuffo(new Buff("8", "NADA", 0));
+				heroe.setBuffo(new Buff("8", "NADA", 0, 0));
 				break;
 			case DEFCORTE:
 				heroe.setDefensacorte(heroe.getInitstat());
-				heroe.setBuffo(new Buff("8", "NADA", 0));
+				heroe.setBuffo(new Buff("8", "NADA", 0, 0));
 				break;
 			case RESISTENCIA:
 				heroe.setResistencia(heroe.getInitstat());
-				heroe.setBuffo(new Buff("8", "NADA", 0));
+				heroe.setBuffo(new Buff("8", "NADA", 0, 0));
 				break;
 			case PRECISION:
 				heroe.setPrecision(heroe.getInitstat());
-				heroe.setBuffo(new Buff("8", "NADA", 0));
+				heroe.setBuffo(new Buff("8", "NADA", 0, 0));
 				break;
 			case NADA:
 				break;
@@ -93,6 +93,16 @@ public class Combat {
 				break;
 			}
 		}
+	
+	private static void setBuffo (Heroe heroe){
+		if (heroe.getDuracionBuffo() == 1){
+			System.out.println(heroe.getDuracionBuffo());
+			System.out.println(heroe.getInitstat());
+			setStatsBuff(heroe);
+		}else{
+			heroe.setDuracionBuffo (heroe.getDuracionBuffo() - 1);
+		}
+	}
 	
 	
 	private static void getStats(Heroe heroe, Enemigo enemigo){
@@ -129,6 +139,7 @@ public class Combat {
 		semilla = new Random();
 		getStats(heroe, enemigo);
 		boolean salir = false;
+		setBuffo(heroe);
 		do{
 			System.out.println("Tu salud: " + heroe.stringSalud());
 			System.out.println("Salud del enemigo " + enemigo.stringSalud());
@@ -145,14 +156,12 @@ public class Combat {
 						System.out.println(enemigo.getNombre() + " te ha asesinado. Pierdes " + heroe.getDinero()*0.30 + " bitcoin");
 						heroe.setDinero((float) (heroe.getDinero() - (heroe.getDinero()*0.30)));
 						heroe.setSalud(heroe.getSaludMax());
-						setStatsBuff(heroe);
 						return ResultadoCombate.DERROTA;
 					}					
 					break;
 				case "2":
 					System.out.println("Huyes del combate y pierdes " + (int)heroe.getDinero()*0.15 + " bitcoins");
 					heroe.setDinero((float) ((float)heroe.getDinero() - (float)heroe.getDinero()*0.15));
-					setStatsBuff(heroe);
 					return ResultadoCombate.HUIDA;
 				default:
 					System.out.println("Comando erroneo");
@@ -164,7 +173,6 @@ public class Combat {
 			System.out.println("Ademas has conseguido: " + enemigo.getLoot());
 			//HACER METODO ADDITEM
 		}
-		setStatsBuff(heroe);
 		return ResultadoCombate.VICTORIA;
 	}
 

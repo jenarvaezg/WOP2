@@ -8,6 +8,7 @@ public class Buff {
 	private TipoBuffo buffo;
 	private int initstat;
 	private int potencia;
+	private int duracion;
 	
 	public enum TipoBuffo{
 		SALUD, FUERZA, MAGIA, DEFGOLPE, DEFCORTE, RESISTENCIA, PRECISION, NADA,
@@ -41,12 +42,14 @@ public class Buff {
 		hash += hashCode(buffo);
 		hash -= nombre.hashCode();
 		hash += potencia*47;
+		hash -= duracion *32;
 		return hash;
 	}
 	
-	public Buff (String buffo, String nombre, int potencia /*, Heroe heroe*/){
+	public Buff (String buffo, String nombre, int potencia, int duracion){
 		this.nombre = nombre;
 		this.potencia = potencia;
+		this.duracion = duracion;
 		switch(buffo){
 		case "1":
 			this.buffo = TipoBuffo.SALUD;
@@ -154,6 +157,18 @@ public class Buff {
 
 	public void setPotencia(int potencia) {
 		this.potencia = potencia;
+	}
+	
+	public int getDuracion(){
+		return duracion;
+	}
+	
+	public void setDuracion(int duracion){
+		this.duracion = duracion;
+	}
+	
+	public String toString(){
+		return "[Nombre: " + nombre + ", Potencia: " + potencia + ", Duracion Buffo: " + duracion + " combate(s)]";
 	}
 
 }

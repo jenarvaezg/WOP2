@@ -27,7 +27,7 @@ public class Heroe {
 	private Armadura armadura;
 	private String genero;
 	private Item[] inventario; //HACER GETTER
-	private Buff buffo =  new Buff ("8", "NADA", 0);
+	private Buff buffo =  new Buff ("8", "NADA", 0, 0);
 	private int initstat;
 	private int contadorbuffo;
 	
@@ -84,7 +84,7 @@ public class Heroe {
 			break;
 		}
 		salud = saludMax;
-		dinero = 0f;//cambiar a 0
+		dinero = 100f;//cambiar a 0
 		this.nombre = nombre;
 		this.genero = genero;
 		
@@ -152,6 +152,7 @@ public class Heroe {
 		buffo.setBuffo(lector.nextLine());		
 		buffo.setNombre(lector.nextLine());
 		buffo.setPotencia(Integer.parseInt(lector.nextLine()));
+		buffo.setDuracion(Integer.parseInt(lector.nextLine()));
 		int hash = Integer.parseInt(lector.nextLine());
 		//INVENTARIO
 		inventario = new Item[10];
@@ -354,6 +355,7 @@ public class Heroe {
 		String s = "Nombre: " + nombre + "\nClase: " + clase +", genero: " + genero + "\nSalud: "+stringSalud()+"\n";
 		s += "Estadisticas ofensivas:\n------\nFuerza: " + fuerza + "\nMagia: " + magia + "\nPrecision: " + precision + "% \n\n";
 		s += "Estadisticas defensivas:\n------\nGolpe: " + defensagolpe + "\nCorte: " + defensacorte + "\nResistencia magica: " + resistencia + "\n\n";
+		s += "Buffos:\n------\n" + buffo + "\n";
 		s += "Equipo\n------\nArma: " + arma + "\nArmadura: " + armadura + "\n";
 		s += "Inventario\n------\n";
 		for(Item i: inventario){
@@ -451,6 +453,14 @@ public class Heroe {
 	
 	public int getPotenciaBuffo(){
 		return buffo.getPotencia();
+	}
+	
+	public int getDuracionBuffo(){
+		return buffo.getDuracion();
+	}
+	
+	public void setDuracionBuffo(int d){
+		buffo.setDuracion(d);
 	}
 
 	public void setInitstat(int initstat) {

@@ -248,13 +248,13 @@ public class Main {
 						switch(heroe.getClase()){
 						case GUERRERO:
 						case PICARO:
-							heroe.setBuffo(new Buff("2", "Fuerza+10", 10/*, heroe*/));
+							heroe.setBuffo(new Buff("2", "Fuerza+10", 10, 1));
 							heroe.setDinero(heroe.getDinero() - 20);
 							System.out.println("Gracias! Vuelve otro dia");
 							salir = true;
 							break;
 						case MAGO:
-							heroe.setBuffo(new Buff("3", "Magia+10", 10/*, heroe*/));
+							heroe.setBuffo(new Buff("3", "Magia+10", 10, 1));
 							heroe.setDinero(heroe.getDinero() - 20);
 							System.out.println("Gracias! Vuelve otro dia");
 							salir = true;
@@ -265,19 +265,19 @@ public class Main {
 						}
 						break;
 					case "2":
-						heroe.setBuffo(new Buff("4", "DefGolpe+10", 10/*, heroe*/));
+						heroe.setBuffo(new Buff("4", "DefGolpe+10", 10, 1));
 						heroe.setDinero(heroe.getDinero() - 25);
 						System.out.println("Gracias! Vuelve otro dia");
 						salir = true;
 						break;
 					case "3":
-						heroe.setBuffo(new Buff("5", "DefCorte+10", 10/*, heroe*/));
+						heroe.setBuffo(new Buff("5", "DefCorte+10", 10, 1));
 						heroe.setDinero(heroe.getDinero() - 25);
 						System.out.println("Gracias! Vuelve otro dia");
 						salir = true;
 						break;
 					case "4": 
-						heroe.setBuffo(new Buff("6", "Resistencia+10", 10/*, heroe*/));
+						heroe.setBuffo(new Buff("6", "Resistencia+10", 10, 1));
 						heroe.setDinero(heroe.getDinero() - 25);
 						System.out.println("Gracias! Vuelve otro dia");
 						salir = true;
@@ -338,6 +338,7 @@ public class Main {
 			writer.println(heroe.getTipoBuffo());
 			writer.println(heroe.getNombreBuffo());
 			writer.println(heroe.getPotenciaBuffo());	
+			writer.println(heroe.getDuracionBuffo());
 			writer.println(heroe.hashCode());
 			//private Item[] inventario();
 			writer.close();
