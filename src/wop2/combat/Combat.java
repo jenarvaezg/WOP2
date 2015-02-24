@@ -3,6 +3,7 @@ package wop2.combat;
 import java.util.Random;
 import java.util.Scanner;
 
+import wop2.buff.*;
 import wop2.enemies.Enemigo;
 import wop2.game.Heroe;
 import wop2.game.Main;
@@ -59,25 +60,32 @@ public class Combat {
 	private static void setStatsBuff (Heroe heroe){
 		switch (heroe.getTipoBuffo()){
 			case SALUD:
-				heroe.setSalud(heroe.getInitStatBuff());
+				heroe.setSalud(heroe.getInitstat());
+				heroe.setBuffo(new Buff("8", "NADA", 0));
 				break;
 			case FUERZA:
-				heroe.setFuerza(heroe.getInitStatBuff());
+				heroe.setFuerza(heroe.getInitstat());
+				heroe.setBuffo(new Buff("8", "NADA", 0));
 				break;
 			case MAGIA:
-				heroe.setMagia(heroe.getInitStatBuff());
+				heroe.setMagia(heroe.getInitstat());
+				heroe.setBuffo(new Buff("8", "NADA", 0));
 				break;
 			case DEFGOLPE:
-				heroe.setDefensagolpe(heroe.getInitStatBuff());
+				heroe.setDefensagolpe(heroe.getInitstat());
+				heroe.setBuffo(new Buff("8", "NADA", 0));
 				break;
 			case DEFCORTE:
-				heroe.setDefensacorte(heroe.getInitStatBuff());
+				heroe.setDefensacorte(heroe.getInitstat());
+				heroe.setBuffo(new Buff("8", "NADA", 0));
 				break;
 			case RESISTENCIA:
-				heroe.setResistencia(heroe.getInitStatBuff());
+				heroe.setResistencia(heroe.getInitstat());
+				heroe.setBuffo(new Buff("8", "NADA", 0));
 				break;
 			case PRECISION:
-				heroe.setPrecision(heroe.getInitStatBuff());
+				heroe.setPrecision(heroe.getInitstat());
+				heroe.setBuffo(new Buff("8", "NADA", 0));
 				break;
 			case NADA:
 				break;

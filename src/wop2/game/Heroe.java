@@ -7,7 +7,7 @@ import java.util.Scanner;
 import wop2.items.*;
 import wop2.items.Arma.TipoAtaque;
 import wop2.buff.*;
-import wop2.buff.Buff.Buffo;
+import wop2.buff.Buff.TipoBuffo;
 
 public class Heroe {
 	
@@ -27,7 +27,8 @@ public class Heroe {
 	private Armadura armadura;
 	private String genero;
 	private Item[] inventario; //HACER GETTER
-	private Buff buffo =  new Buff ("8", "NADA", 0, null);
+	private Buff buffo =  new Buff ("8", "NADA", 0);
+	private int initstat;
 	private int contadorbuffo;
 	
 	public enum Class {
@@ -83,7 +84,7 @@ public class Heroe {
 			break;
 		}
 		salud = saludMax;
-		dinero = 100f;//cambiar a 0
+		dinero = 0f;//cambiar a 0
 		this.nombre = nombre;
 		this.genero = genero;
 		
@@ -104,11 +105,13 @@ public class Heroe {
 		sumahashes -= getSaludMax()*9;
 		sumahashes -= getDinero();
 		sumahashes += getGenero().hashCode();
+		sumahashes -= getInitstat();
 		//ARMA
-		sumahashes -= arma.hashCode();		
+		sumahashes += arma.hashCode();		
 		//ARMADURA
-		sumahashes += armadura.hashCode();
-		
+		sumahashes -= armadura.hashCode();
+		//BUFFO
+		sumahashes += buffo.hashCode();
 		return sumahashes;		
 	}
 	
@@ -128,6 +131,7 @@ public class Heroe {
 		saludMax = Integer.parseInt(lector.nextLine());
 		dinero = Float.parseFloat(lector.nextLine());
 		genero = lector.nextLine();
+		initstat = Integer.parseInt(lector.nextLine());
 		//ARMA
 		arma = new Arma();
 		arma.setPrecio(Integer.parseInt(lector.nextLine()));
@@ -143,12 +147,18 @@ public class Heroe {
 		armadura.setDefensaCorte((Integer.parseInt(lector.nextLine())));
 		armadura.setDefensaGolpe((Integer.parseInt(lector.nextLine())));
 		armadura.setResistencia((Integer.parseInt(lector.nextLine())));
+		//BUFFO
+		buffo = new Buff();
+		buffo.setBuffo(lector.nextLine());		
+		buffo.setNombre(lector.nextLine());
+		buffo.setPotencia(Integer.parseInt(lector.nextLine()));
 		int hash = Integer.parseInt(lector.nextLine());
+		System.out.println(hash);
 		//INVENTARIO
 		inventario = new Item[10];
 		lector.close();
-		
 		//HASHCHECK
+		System.out.println(hashCode());
 		if(hash != hashCode()){
 			throw new RuntimeException();
 		}
@@ -194,7 +204,7 @@ public class Heroe {
 		this.clase = clase;
 	}
 	
-public int hashCode(Heroe.Class clase){
+	public int hashCode(Heroe.Class clase){
 		
 		switch(clase){
 		case GUERRERO:
@@ -398,39 +408,58 @@ public int hashCode(Heroe.Class clase){
 
 	public void setBuffo(Buff buffo) {
 		this.buffo = buffo;
-		/*switch (buffo.getBuffo()){
+		switch (buffo.getBuffo()){
 		case SALUD:
+			setInitstat(getSalud());
 			setSalud(this.salud + buffo.getPotencia());
 			break;
 		case FUERZA:
+			setInitstat(getFuerza());
 			setFuerza(this.fuerza + buffo.getPotencia());
 			break;
 		case MAGIA:
+			setInitstat(getMagia());
 			setMagia(this.magia + buffo.getPotencia());
 			break;
 		case DEFGOLPE:
+			setInitstat(getDefensagolpe());
 			setDefensagolpe(this.defensagolpe + buffo.getPotencia());
 			break;
 		case DEFCORTE:
+			setInitstat(getDefensacorte());
 			setDefensacorte(this.defensacorte + buffo.getPotencia());
 			break;
 		case RESISTENCIA:
+			setInitstat(getResistencia());
 			setResistencia(this.resistencia + buffo.getPotencia());
 			break;
 		case PRECISION:
+			setInitstat(getPrecision());
 			setPrecision(this.precision + buffo.getPotencia());
 			break;
-		default:
+		case NADA:
 			break;
-		}*/
+		}
 		
 	}
 	
-	public int getInitStatBuff(){
-		return buffo.getInitstat();
+	public int getInitstat(){
+		return initstat;
 	}
 	
-	public Buffo getTipoBuffo(){
+	public TipoBuffo getTipoBuffo(){
 		return buffo.getBuffo();
+	}
+	
+	public int getPotenciaBuffo(){
+		return buffo.getPotencia();
+	}
+
+	public void setInitstat(int initstat) {
+		this.initstat = initstat;
+	}
+	
+	public String getNombreBuffo(){
+		return buffo.getNombre();
 	}
 }
