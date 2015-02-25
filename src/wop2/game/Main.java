@@ -91,7 +91,7 @@ public class Main {
 	}
 
 	private void tienda(){ //hacer clase tiendo
-		System.out.println("Bienvenido a la tienda");//AGREGAR BUFFOS
+		System.out.println("Bienvenido a la tienda");
 		boolean salir = false;
 		do{
 			printThisAndPrompt("1) Comprar \n2) Vender\n3) Salir");
@@ -123,7 +123,7 @@ public class Main {
 						if(heroe.getDinero() >= 52){
 							heroe.setArmadura(new Armadura(52/2, "Malla oxidada", 20, 10, 0));
 							heroe.setDinero(heroe.getDinero() - 52);
-							System.out.println("Obtienes: Espada de piedra");//TODO
+							System.out.println("Obtienes: Malla oxdada");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
 						}
@@ -237,12 +237,12 @@ public class Main {
 					System.out.println("Vuelve cuando tengas dinero, mangarrian");
 					salir = true;
 				}else if (heroe.getSalud() < heroe.getSaludMax()) {
-					System.out.println("Te sientes en forma y te cuesta 30 Bitcoins");
+					System.out.println("Te sientes en forma y te cuesta 15 Bitcoins");
 					heroe.setSalud(heroe.getSaludMax());
-					heroe.setDinero(heroe.getDinero() - 30);
+					heroe.setDinero(heroe.getDinero() - 15);
 					salir = true;
 				}else if(heroe.getSalud() == heroe.getSaludMax()){
-					printThisAndPrompt("1) Aumentar Att. Principal (20 Bitcoins)" +
+					printThisAndPrompt("1) Aumentar Att. Principal (30 Bitcoins)" +
 							"\n2) Aumentar Def.Golpe (25 Bitcoins)\n3) Aumentar Def.Corte (25 Bitcoins)\n4) Aumentar Resistencia (25 Bitcoins)\n5) Salir");
 					switch(reader.nextLine()){
 					case "1":
@@ -250,13 +250,13 @@ public class Main {
 						case GUERRERO:
 						case PICARO:
 							heroe.setBuffo(new Buff("2", "Fuerza+10", 10, 1));
-							heroe.setDinero(heroe.getDinero() - 20);
+							heroe.setDinero(heroe.getDinero() - 30);
 							System.out.println("Gracias! Vuelve otro dia");
 							salir = true;
 							break;
 						case MAGO:
 							heroe.setBuffo(new Buff("3", "Magia+10", 10, 2));
-							heroe.setDinero(heroe.getDinero() - 20);
+							heroe.setDinero(heroe.getDinero() - 30);
 							System.out.println("Gracias! Vuelve otro dia");
 							salir = true;
 							break;
@@ -321,7 +321,6 @@ public class Main {
 			writer.println(heroe.getDinero());
 			writer.println(heroe.getGenero());
 			writer.println(heroe.getInitstat());
-
 			//ARMA
 			writer.println(heroe.getPrecioArma());
 			writer.println(heroe.getNombreArma());
@@ -343,10 +342,11 @@ public class Main {
 			writer.println(heroe.hashCode());
 			//private Item[] inventario();
 			writer.close();
+			System.out.println("Partida Guardada correctamente");
 		} catch (Exception e){
+			e.printStackTrace();
 			System.out.println("Error guardando partida");
 		}
-		System.out.println("Partida Guardada correctamente");
 	}
 	
 	public void menu(){
