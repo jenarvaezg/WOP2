@@ -95,12 +95,10 @@ public class Combat {
 		}
 	
 	private static void setBuffo (Heroe heroe){
-		if (heroe.getDuracionBuffo() == 1){
-			System.out.println(heroe.getDuracionBuffo());
-			System.out.println(heroe.getInitstat());
-			setStatsBuff(heroe);
-		}else{
+		if (heroe.getDuracionBuffo() > 0){
 			heroe.setDuracionBuffo (heroe.getDuracionBuffo() - 1);
+		}else{
+			setStatsBuff(heroe);
 		}
 	}
 	
@@ -137,9 +135,9 @@ public class Combat {
 	public static ResultadoCombate Combatir(Heroe heroe, Enemigo enemigo, Scanner reader){
 		System.out.println("LUCHA CONTRA:  " + enemigo.getNombre());
 		semilla = new Random();
+		setBuffo(heroe);
 		getStats(heroe, enemigo);
 		boolean salir = false;
-		setBuffo(heroe);
 		do{
 			System.out.println("Tu salud: " + heroe.stringSalud());
 			System.out.println("Salud del enemigo " + enemigo.stringSalud());

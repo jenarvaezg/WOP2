@@ -122,6 +122,7 @@ public class Main {
 					case "3":
 						if(heroe.getDinero() >= 52){
 							heroe.setArmadura(new Armadura(52/2, "Malla oxidada", 20, 10, 0));
+							heroe.setDinero(heroe.getDinero() - 52);
 							System.out.println("Obtienes: Espada de piedra");//TODO
 						}else{
 							System.out.println("No tienes dinero, mangarrian");
@@ -254,7 +255,7 @@ public class Main {
 							salir = true;
 							break;
 						case MAGO:
-							heroe.setBuffo(new Buff("3", "Magia+10", 10, 1));
+							heroe.setBuffo(new Buff("3", "Magia+10", 10, 2));
 							heroe.setDinero(heroe.getDinero() - 20);
 							System.out.println("Gracias! Vuelve otro dia");
 							salir = true;

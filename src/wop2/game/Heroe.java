@@ -27,7 +27,7 @@ public class Heroe {
 	private Armadura armadura;
 	private String genero;
 	private Item[] inventario; //HACER GETTER
-	private Buff buffo =  new Buff ("8", "NADA", 0, 0);
+	private Buff buffo;
 	private int initstat;
 	private int contadorbuffo;
 	
@@ -84,7 +84,7 @@ public class Heroe {
 			break;
 		}
 		salud = saludMax;
-		dinero = 0f;//cambiar a 0
+		dinero = 100f;//cambiar a 0
 		this.nombre = nombre;
 		this.genero = genero;
 		
